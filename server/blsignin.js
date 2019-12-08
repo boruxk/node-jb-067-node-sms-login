@@ -23,27 +23,14 @@ function createOTP(phone, callback) {
         if (err) {
             callback(err);
         } else {
-            let xmlpost = `<Inforu>
-                                <User>
-                                    <Username>MyUsername</Username>
-                                    <Password>MyPassword</Password>
-                                </User>
-                                <ContentType="sms">
-                                    <Message>${password}</Message>
-                                </Content>
-                                <Recipients>
-                                    <PhoneNumber>${phone}</PhoneNumber>
-                                </Recipients>
-                                <Settings>
-                                    <Sender>${phone}</Sender>
-                                </Settings>
-                            </Inforu>`;
-            fetch('http://uapi.mesergo.co.il/SendMessageXml.ashx?InforuXML={xml}', {
-                method: 'POST',
-                body: xmlpost,
-                headers: {
-                    'Content-Type': 'text/xml'
-                }
+            let xmlpost = `<Inforu><User><Username>kobieshka</Username><Password>qqQQ11!!</Password></User><ContentType="sms"><Message>${password}</Message></Content><Recipients><PhoneNumber>${phone}</PhoneNumber></Recipients><Settings><Sender>0547974202</Sender></Settings></Inforu>`;
+            console.log(xmlpost)
+            fetch(`http://uapi.mesergo.co.il/SendMessageXml.ashx?InforuXML=${xmlpost}`, {
+                method: 'POST'
+            }).then(data => {
+                console.log(data);
+                
+                data.text().then(xmlRes => console.log(xmlRes));
             });
             result.password = password;
             callback(null, result);
