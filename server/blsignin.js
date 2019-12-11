@@ -15,7 +15,7 @@ function compareSignin(phone, callback) {
 
 function createOTP(phone, callback) {
     var password = generator.generate({
-        length: 5,
+        length: 10,
         numbers: true
     });
     let query = `UPDATE user SET otp = '${password}' WHERE phone LIKE '${phone}'`;
@@ -23,7 +23,7 @@ function createOTP(phone, callback) {
         if (err) {
             callback(err);
         } else {
-            let xmlpost = `<Inforu><User><Username>kobieshka</Username><Password>qqQQ11!!</Password></User><ContentType="sms"><Message>${password}</Message></Content><Recipients><PhoneNumber>${phone}</PhoneNumber></Recipients><Settings><Sender>0547974202</Sender></Settings></Inforu>`;
+            let xmlpost = `<Inforu><User><Username>kobieshka</Username><Password>qqQQ11!!</Password></User><Content Type="sms"><Message>${password}</Message></Content><Recipients><PhoneNumber>${phone}</PhoneNumber></Recipients><Settings><Sender>0547974202</Sender></Settings></Inforu>`;
             console.log(xmlpost)
             fetch(`http://uapi.mesergo.co.il/SendMessageXml.ashx?InforuXML=${xmlpost}`, {
                 method: 'POST'
